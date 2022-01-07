@@ -1,23 +1,27 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 
+export const useMeals = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [rawMeals, setRawMeals] = useState([]);
 
-export const useMeals=()=>{
-    const[isLoading, setisLoading]= useState(true);
-    const[rawMeals,setRawMeals]=useState([]);
-    useEffect(()=>{
-           const loadMeals=async()=>{
-               const response=await fetch("/meals");
-               const rawMealsResponse=await response.json();
-               setRawMeals(meals);
-               setisLoading(false);
-           }
-           loadMeals();
-    },[]);
-   return{isLoading, 
-    meals: rawMeals.map(rawMeal=>({
-        ...rawMeal,
-        PlannedDate: new Date (rawMeal.PlannedDate),
-    })), 
-    setMeals: setRawMeals };
+    const loadMeals = async () => {
+        setIsLoading(true);
+        const response = await fetch('/meals');
+        const rawMeals = await response.json();
+        setRawMeals(rawMeals);
+        setIsLoading(false);
+    }
+
+    useEffect(() => {
+        loadMeals();
+    }, []);
+
+    return {
+        isLoading,
+        meals: rawMeals.map(meal => ({
+            ...meal,
+            plannedDate: new Date(meal.plannedDate),
+        })),
+        setMeals: setRawMeals,
+    };
 }
-
