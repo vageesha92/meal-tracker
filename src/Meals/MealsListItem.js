@@ -1,29 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import {SmallX} from "../UI";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { SmallX } from '../UI';
 
-export const MealListItem=({meal,date})=>(
+export const MealsListItem = ({ meal, date, onDelete }) => (
     <div className="list-item">
-    {meal ? (
-        <>
-        <h3> {date.getDate()}</h3>
-        <p>{meal.recipe.name}</p>
-        <div classname="right-action">
-        <SmallX/>
-        </div></>
+        {meal ? (
+            <>
+            <h3>{date.getDate()}</h3>
+            <p>{meal.recipe.name}</p>
+            <div className="right-action">
+                <SmallX onClick={() => onDelete(meal._id)} />
+            </div>
+            </>
         ) : (
             <>
-            <h3> {date.getDate()}</h3>
-        <p>No meal planned </p>
-        <div classname="right-action">
-        <Link to={`/recipe?date=${date.toString()}`}>
-            <button>Add</button>
-        </Link>
-        </div>
+            <h3>{date.getDate()}</h3>
+            <p>No meal planned</p>
+            <div className="right-action">
+                <Link to={`/recipes?date=${date.toString()}`}>
+                    <button>Add</button>
+                </Link>
+            </div>
             </>
-        )
-        
-    }
-
+        )}
     </div>
-)
+);
