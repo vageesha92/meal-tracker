@@ -1,17 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-export const useIngredients = ()=>{
-    const [isLoading,setIsLoading]=useState(true);
-    const[ingredients,setIngredients]=useState([]);
+export const useIngredients = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [ingredients, setIngredients] = useState([]);
 
-    useEffect(()=>{
-        const loadIngredients=async()=>{
-            const response= await fetch("./ingredients");
-            const ingredients = await response.json();
-            setIngredients(ingredients);
-            setIsLoading(false);
-        }
+    const loadIngredients = async () => {
+        setIsLoading(true);
+        const response = await fetch('/ingredients');
+        const ingredients = await response.json();
+        setIngredients(ingredients);
+        setIsLoading(false);
+    }
+
+    useEffect(() => {
         loadIngredients();
-    },[]);
-   return{isLoading, ingredients, setIngredients}
+    }, []);
+
+    return { isLoading, ingredients, setIngredients };
 }
