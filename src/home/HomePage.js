@@ -1,11 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useMeals } from "../Meals";
+import { useIngredients } from "../Ingredients/useIngredients";
 
 export const HomePage =()=> {
     const {meals, isLoading: isLoadingMeals, setMeals}=useMeals();
+    const {ingredients, isLoading: isLoadingIngredients, setIngredients}=useIngredients();
     console.log("Meals:");
-    console.log(meals);
+    console.log(ingredients);
     return (
-    <h1>This is the Home Page</h1>
+        <div className="page-container">
+            <div className="column">
+             <MealsList
+                isLoading={isLoadingMeals}
+                meals={meals}/>
+            </div>
+            <div classname="column">
+                    <IngredientsList
+                    isLoading={isLoadingIngredients}
+                    ingredients={ingredients}/>
+                   <button 
+                   classname="list-container full-width shopping-list-button ">
+                       Generate Shopping List 
+                    </button>
+    )
+            </div>
+        </div>
 );
 }
