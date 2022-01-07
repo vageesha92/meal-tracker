@@ -12,7 +12,7 @@ const datesAreSameDay = (date1, date2) =>
         & date1.getMonth() === date2.getMonth()
         && date1.getDate() === date2.getDate();
 
-export const MealsList = ({ meals, isLoading }) => (
+export const MealsList = ({ meals, isLoading, onDelete }) => (
     <div className="list-container">
         <h1>Planned Meals</h1>
         {isLoading
@@ -23,7 +23,8 @@ export const MealsList = ({ meals, isLoading }) => (
                     <MealsListItem
                         key={index}
                         meal={mealForDay}
-                        date={date} />
+                        date={date}
+                        onDelete={onDelete} />
                 );
             })}
     </div>
